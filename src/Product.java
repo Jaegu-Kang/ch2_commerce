@@ -1,5 +1,5 @@
 public class Product {
-    // Product 속성 변수를 선언합니다.
+    // Product 속성 변수를 선언합니다.(상품의 이름, 가격, 상세설명, 재고)
     public String name;
     public int price;
     public String description;
