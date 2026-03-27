@@ -5,10 +5,19 @@ public class CommerceSystem {
 
     // Product List 를 생성합니다.
     // 카테고리 목록을 관리할 리스트를 선언합니다.
-    public List<Category> categories ;
+    // 모든 변수를 private로 선언합니다.
+    private List<Category> categories ;
 
     // CommerceSystem 생성자를 지정합니다.
     public CommerceSystem(List<Category> categories) {
+        this.categories = categories;
+    }
+    // 외부에서 변수의 값을 읽을 수 있도록 하는 게터 매서드
+    public List<Category> getCategories(){
+        return this.categories;
+    }
+    // 외부에서 변수의 값을 수정할 수 있도록 하는 세터 메서드
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
     // start 함수를 생성합니다.
@@ -45,9 +54,10 @@ public class CommerceSystem {
                 // 입력받은 값에 맞는 카테고리를 출력합니다.
                 System.out.println("[ " + selectCategory.getCategoryName() + " 카테고리 ]");
                 // 카테고리 안에있는 상품의 갯수만큼 지정된 형식에 맞춰서 출력합니다.
-                    for (int i = 0; i < selectCategory.products.size(); i++){
-                        Product p = selectCategory.products.get(i);
-                        System.out.printf("%d. %-15s | %,-10d원 | %-15s %n", (i + 1), p.name, p.price, p.description);
+                // 직접 변수에 접근하지 않고 getProducts()를 사용합니다.
+                    for (int i = 0; i < selectCategory.getProducts().size(); i++){
+                        Product p = selectCategory.getProducts().get(i);
+                        System.out.printf("%d. %-15s | %,-10d원 | %-15s %n", (i + 1), p.getName(), p.getPrice(), p.getDescription());
                     }
                     System.out.println("0.  뒤로가기");
 
@@ -59,10 +69,11 @@ public class CommerceSystem {
                         System.out.println("메인 메뉴로 돌아갑니다.");
                         break;
                         // 입력받은 값이 0보다 크고 상품의 갯수보다 작거나 같은 정상적인 수를 입력 받았을때
-                    } else if (catNum > 0 && catNum <= selectCategory.products.size()) {
-                        Product p = selectCategory.products.get(catNum - 1);
+                        // 직접 변수에 접근하지 않고 getProducts()를 사용합니다.
+                    } else if (catNum > 0 && catNum <= selectCategory.getProducts().size()) {
+                        Product p = selectCategory.getProducts().get(catNum - 1);
                         // (i + 1), p.name, p.price, p.description, p.stock 을 형식에 맞춰서 출력합니다.
-                        System.out.printf("선택한상품: %-10s | %,-10d원 | %-10s | 재고: %d개%n", p.name, p.price, p.description, p.stock);
+                        System.out.printf("선택한상품: %-10s | %,-10d원 | %-10s | 재고: %d개%n", p.getName(), p.getPrice(), p.getDescription(), p.getStock());
                         break;
                     } else {
                         // 상품 목록의 숫자가 아닌 잘못된 숫자를 입력받았을 때 에러 메세지를 출력합니다.
