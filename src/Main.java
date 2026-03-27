@@ -22,10 +22,11 @@ public class Main {
 
         // List에 생성한 Product 등록합니다.
         // 전자제품 카테고리 안에 Product들을 등록합니다.
-        electronics.products.add(pd1);
-        electronics.products.add(pd2);
-        electronics.products.add(pd3);
-        electronics.products.add(pd4);
+        // 직접 변수에 접근하지 않고 getProducts()를 사용합니다.
+        electronics.getProducts().add(pd1);
+        electronics.getProducts().add(pd2);
+        electronics.getProducts().add(pd3);
+        electronics.getProducts().add(pd4);
 
         // 카테고리 리스트에 각 카테고리들을 추가합니다.
         categories.add(electronics);
