@@ -164,7 +164,7 @@ public class AdminSystem {
             selectProduct.setPrice(newPrice);
         }else if (editProduct == 2) {
             System.out.printf("현재설명: %s",selectProduct.getDescription());
-            System.out.print("변경할 가격을 입력하세요: ");
+            System.out.print("변경할 내용을 입력하세요: ");
             String newDesc = scanner.nextLine();
             System.out.printf("설명이 %s 으로 수정되었습니다.", newDesc);
             selectProduct.setDescription(newDesc);
