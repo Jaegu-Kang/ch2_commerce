@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -19,6 +20,8 @@ public class Main {
         // Product List 를 생성합니다.
         // 리스트를 카테고리용으로 변경,생성합니다.
         List<Category> categories = new ArrayList<>();
+        // Scanner 객체를 생성합니다.
+        Scanner scanner = new Scanner(System.in);
 
         // List에 생성한 Product 등록합니다.
         // 전자제품 카테고리 안에 Product들을 등록합니다.
@@ -35,7 +38,7 @@ public class Main {
 
         // CommerceSystem 객체 생성 후 start 함수를 실행합니다.
         // 카테고리 리스트를 전달해서 객체를 생성합니다.
-        CommerceSystem system = new CommerceSystem(categories);
+        CommerceSystem system = new CommerceSystem(categories, scanner);
         system.start();
 
 
