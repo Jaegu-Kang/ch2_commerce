@@ -14,7 +14,7 @@ public class CartItem {
     public int getQuantity() {
         return this.quantity;
     }
-
+    // 기존의 담긴 상품을 추가할경우 수량증가를 위한 메서드입니다.
     public void addQuantity(int addStock) {
         this.quantity += addStock;
     }
