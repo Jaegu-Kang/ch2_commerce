@@ -60,6 +60,9 @@ public class AdminSystem {
                     adminEditProduct();
                 } else if (adminNum == 3) {
                     adminDeleteProduct();
+                } else if (adminNum == 4) {
+                    adminShowAllProduct();
+
                 }
 
             } catch (NumberFormatException e){
@@ -212,6 +215,16 @@ public class AdminSystem {
             System.out.println("상품이 성공적으로 삭제되었습니다.");
         } else {
             System.out.println("삭제가 취소되었습니다.");
+        }
+    }
+    // 전체 현황을 출력하는 메서드입니다.
+    public void adminShowAllProduct() {
+        System.out.println("[ 전체 상품 현황 ]");
+        for (Category cat : categories) {
+            System.out.println(cat.getCategoryName());
+            for (Product p : cat.getProducts()) {
+                System.out.printf("%-10s | %,-10d원 | %-10s | 재고: %d개%n", p.getName(), p.getPrice(), p.getDescription(), p.getStock());
+            }
         }
     }
 
