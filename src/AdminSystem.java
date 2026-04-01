@@ -70,7 +70,7 @@ public class AdminSystem {
 
     // 상품을 추가하는 메서드입니다.
     private void adminAddProduct() {
-        System.out.println("어느 카테로기에 상품을 추가하시겠습니까?");
+        System.out.println("어느 카테고리에 상품을 추가하시겠습니까?");
         for (int i = 0; i < categories.size(); i++){
             System.out.println((i + 1) + "." + categories.get(i).getCategoryName());
         }
@@ -121,7 +121,7 @@ public class AdminSystem {
 
     // 상품을 수정하는 메서드입니다.
     public void adminEditProduct() {
-        System.out.println("수정할 상품명을 입력하세요");
+        System.out.print("수정할 상품명을 입력하세요: ");
         String searchName = scanner.nextLine();
 
         Product selectProduct = null;
@@ -171,6 +171,43 @@ public class AdminSystem {
             System.out.println("잘못 입력하셨습니다.");
         }
 
+    }
+
+    // 상품 삭제 로직입니다.
+    public void adminDeleteProduct() {
+        System.out.print("삭제할 상품명을 입력하세요: ");
+        String delName = scanner.nextLine();
+
+        Product selectProduct = null;
+        Category selectCategory = null;
+
+        for (Category cat : categories) {
+            for (Product p : cat.getProducts()) {
+                if (p.getName().equals(delName)) {
+                    selectProduct = p;
+                    selectCategory = cat;
+                    break;
+                }
+            }
+            if (selectProduct != null)
+                break;
+        }
+        if (selectProduct == null) {
+            System.out.println("해당 상품을 찾을 수 없습니다.");
+            return;
+        }
+        System.out.printf("현재 상품 정보: %s | %,d원 | %s | 재고: %d개",selectProduct.getName(), selectProduct.getPrice(), selectProduct.getDescription(), selectProduct.getStock());
+        System.out.println("정말 삭제하시겠습니까? (삭제 시 장바구니에서도 비워집니다.)");
+        System.out.print("1.확인    2. 취소 \n입력: ");
+
+        int delProduct = Integer.parseInt(scanner.nextLine());
+        if (delProduct == 1) {
+            selectCategory.getProducts().remove(selectProduct);
+            cart.removeProduct(selectProduct.getName());
+            System.out.println("상품이 성공적으로 삭제되었습니다.");
+        } else {
+            System.out.println("삭제가 취소되었습니다.");
+        }
     }
 
 }

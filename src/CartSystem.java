@@ -79,4 +79,9 @@ public class CartSystem {
         items.clear();
         System.out.println("주문이 취소되었습니다.");
     }
+
+    // 관리자 모드로 상품을 삭제했을 때 장바구니에서도 해당 상품을 지우는 메서드입니다.
+    public void removeProduct(String productName) {
+        items.removeIf(item -> item.getProduct().getName().equals(productName));
+    }
 }
