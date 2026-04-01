@@ -58,6 +58,8 @@ public class AdminSystem {
                       adminAddProduct();
                 } else if (adminNum == 2) {
                     adminEditProduct();
+                } else if (adminNum == 3) {
+                    adminDeleteProduct();
                 }
 
             } catch (NumberFormatException e){
