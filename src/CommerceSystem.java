@@ -50,6 +50,7 @@ public class CommerceSystem {
                     System.out.println(cancelNum + ".주문 취소      | 진행중인 주문을 취소합니다.");
                     System.out.println("아래 메뉴를 선택해주세요.");
                 }
+                System.out.println("6. 관리자 모드");
                 System.out.print("원하는 메뉴 숫자를 입력하세요: ");
 
                 // 사용자가 입력한 숫자를 읽어옵니다.
@@ -60,7 +61,11 @@ public class CommerceSystem {
                     // 입력받은 숫자가 0일 때 프로그램을 종료합니다.
                     System.out.println("커머스 플랫폼을 종료합니다.");
                     return;
-                    // mainNum이 0 보다 크고 카테고리 범위 내 일때 실제 입력받은 값에 맞는 카테고리를 가져옵니다.
+
+                } else if (mainNum == 6) {
+                    AdminSystem adminSystem = new AdminSystem(categories, cart, scanner);
+                    adminSystem.handleAdminMode();
+                  // mainNum이 0 보다 크고 카테고리 범위 내 일때 실제 입력받은 값에 맞는 카테고리를 가져옵니다.
                 } else if (mainNum > 0 && mainNum <= categories.size()) {
                     Category selectCategory = categories.get(mainNum - 1);
                     // 서브메뉴 반복문 시작

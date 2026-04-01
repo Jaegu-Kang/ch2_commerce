@@ -140,15 +140,18 @@ public class AdminSystem {
             System.out.println("해당 상품을 찾을 수 없습니다.");
             return;
         }
-        System.out.printf("현재 상품 정보: %s | %,d원 | %s | 재고: %d개",selectProduct.getName(), selectProduct.getPrice(), selectProduct.getDescription(), selectProduct.getStock());
+        System.out.printf("현재 상품 정보: %s | %,d원 | %s | 재고: %d개\n",selectProduct.getName(), selectProduct.getPrice(), selectProduct.getDescription(), selectProduct.getStock());
         System.out.println("수정할 항목을 선택하세요:");
         System.out.println("1. 가격");
         System.out.println("2. 설명");
         System.out.println("3. 재고");
+        System.out.println("0. 뒤로가기");
         System.out.print("입력: ");
 
         int editProduct = Integer.parseInt(scanner.nextLine());
-        if (editProduct == 1) {
+        if (editProduct == 0) {
+            return;
+        }else if (editProduct == 1) {
             System.out.printf("현재가격: %,d원",selectProduct.getPrice());
             System.out.print("변경할 가격을 입력하세요: ");
             int newPrice = Integer.parseInt(scanner.nextLine());
