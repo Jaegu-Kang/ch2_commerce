@@ -90,8 +90,8 @@ public class AdminSystem {
         } catch (NumberFormatException e) {
             System.out.println("잘못된 입력입니다.");
             return;
-        }// 사용자가 목록에 없는 번호를 입력하면 에러메세지를 출력합니다,
-        if (catNum > categories.size()) {
+        }// 사용자가 목록에 없는 번호를 입력하면 에러메세지를 출력합니다, 0 이하의 숫자 입력 방지
+        if (catNum < 0 || catNum > categories.size()) {
             System.out.println("존재하지 않는 카테고리 입니다.");
             return;
         }// 올바른 번호가 입력되면 카테고리를 출력후 상품명을 입력받습니다.
@@ -105,24 +105,28 @@ public class AdminSystem {
                 System.out.println("이미 존재하는 상품입니다.");
                 return;
             }
-        }// 상품 정보를 입력합니다.
-        System.out.print("가격을 입력하세요: ");
-        int price = Integer.parseInt(scanner.nextLine());
-        System.out.print("상품 설명을 입력하세요: ");
-        String description = scanner.nextLine();
-        System.out.print("재고 수량을 입력하세요: ");
-        int stock = Integer.parseInt(scanner.nextLine());
+        }// 상품 정보를 입력합니다.문자 입력 방지 추가
+        try {
+            System.out.print("가격을 입력하세요: ");
+            int price = Integer.parseInt(scanner.nextLine());
+            System.out.print("상품 설명을 입력하세요: ");
+            String description = scanner.nextLine();
+            System.out.print("재고 수량을 입력하세요: ");
+            int stock = Integer.parseInt(scanner.nextLine());
 
-        System.out.printf("\n%s | %,d원 | %s | 재고: %d개\n", name, price, description, stock);
-        System.out.println("위 정보로 상품을 추가하시겠습니까?");
-        System.out.print("1.확인    2. 취소 \n입력: ");
+            System.out.printf("\n%s | %,d원 | %s | 재고: %d개\n", name, price, description, stock);
+            System.out.println("위 정보로 상품을 추가하시겠습니까?");
+            System.out.print("1.확인    2. 취소 \n입력: ");
 
-        int addNum = Integer.parseInt(scanner.nextLine());
-        if (addNum == 1) {
-            selectCategory.getProducts().add(new Product(name, price, description, stock));
-            System.out.println("상품이 성공적으로 추가되었습니다.");
-        } else {
-            System.out.println("상품등록이 취소되었습니다.");
+            int addNum = Integer.parseInt(scanner.nextLine());
+            if (addNum == 1) {
+                selectCategory.getProducts().add(new Product(name, price, description, stock));
+                System.out.println("상품이 성공적으로 추가되었습니다.");
+            } else {
+                System.out.println("상품등록이 취소되었습니다.");
+            }
+        }catch (NumberFormatException e) {
+            System.out.println("잘못 입력하셨습니다. 숫자를 입력하세요.");
         }
 
     }

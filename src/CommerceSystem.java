@@ -53,8 +53,8 @@ public class CommerceSystem {
                 System.out.println("6. 관리자 모드");
                 System.out.print("원하는 메뉴 숫자를 입력하세요: ");
 
-                // 사용자가 입력한 숫자를 읽어옵니다.
-                int mainNum = scanner.nextInt();
+                // 사용자가 입력한 숫자를 읽어옵니다.AdminSystem 처럼 개선
+                int mainNum = Integer.parseInt(scanner.nextLine());
 
                 // 확장성과 편의를 위해서 switch case가 맞지 않는것 같아서 if문으로 변경합니다.
                 if (mainNum == 0) {
@@ -81,8 +81,8 @@ public class CommerceSystem {
                             }
                             System.out.println("0.  뒤로가기");
 
-                            // 사용자가 입력한 숫자를 읽어옵니다.
-                            int subNum = scanner.nextInt();
+                            // 사용자가 입력한 숫자를 읽어옵니다.AdminSystem 처럼 개선
+                            int subNum = Integer.parseInt(scanner.nextLine());
                             // 상세메뉴 조건문 시작
                             if (subNum == 0) {
                                 //입력받은 값이 0일 경우 메인메뉴로 돌아갑니다.
@@ -104,20 +104,20 @@ public class CommerceSystem {
                         } catch (InputMismatchException e) {
                             System.out.println("잘못 입력하셨습니다. 숫자를 입력해주세요.");
                         }
-                    } // 장바구니가 비어있지않고 사용자가 4를 입력했을때
-                    } else if (!cart.empty() && mainNum == 4) {
+                    } // 장바구니가 비어있지않고 사용자가 4를 입력했을때 ,동적 메뉴 변수인 cartMenuNum과 cancelNum으로 수정
+                    } else if (!cart.empty() && mainNum == cartMenuNum) {
                     // 주문 결제 기능을 핸들링하는 메서드를 호출합니다.
                         handleOrderComplete(scanner);
                       // 장바구니가 비어있지 않고 사용자가 5를 입력했을때
-                    } else if (!cart.empty() && mainNum == 5) {
+                    } else if (!cart.empty() && mainNum == cancelNum) {
                         // 주문취소하는 기능을 핸들링하는 메서드를 호출합니다.
                         cart.cancelOrder();
                 } else {
                         // 현재 메뉴가 아닌 잘못된 수를 입력 받았을때 에러 메세지를 출력합니다.
                         throw new IllegalArgumentException("잘못 입력하셨습니다. 다시 입력해주세요.");
                     }
-                // 사용자가 문자를 입력했을 때 메세지를 출력합니다.
-                } catch(InputMismatchException e){
+                // 사용자가 문자를 입력했을 때 메세지를 출력합니다. 수정
+                } catch(NumberFormatException e){
                     System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
                 // 현재 메뉴가 아닌 잘못된 수를 입력 받았을때 에러 메세지를 출력합니다.
             } catch (IllegalArgumentException e) {
@@ -131,24 +131,29 @@ public class CommerceSystem {
         System.out.printf("%s | %,d원 | %s", p.getName(), p.getPrice(), p.getDescription());
         System.out.println("| 위 상품을 장바구니에 추가하시겠습니까?");
         System.out.print("1. 확인     2. 취소 :");
-        int addProduct = scanner.nextInt();
-        // 사용자의 입력이 1일때
-        if (addProduct == 1) {
-            int quantity = 1;
-            // 장바구니의 현재 수량을 가져옵니다.
-            int roadCart = cart.checkQuantity(p);
-            // 현재 수량과 추가할 수량의 합이 재고보다 큰지 판별합니다.
-            if (roadCart + quantity > p.getStock()) {
-                // 크다면 재고가 부족합니다 출력
-                System.out.println("재고가 부족합니다.");
-                // 아니라면 장바구니에 추가합니다.
+        // try catch 추가 및 입력 변수 수정
+        try {
+            int addProduct = Integer.parseInt(scanner.nextLine());
+            // 사용자의 입력이 1일때
+            if (addProduct == 1) {
+                int quantity = 1;
+                // 장바구니의 현재 수량을 가져옵니다.
+                int roadCart = cart.checkQuantity(p);
+                // 현재 수량과 추가할 수량의 합이 재고보다 큰지 판별합니다.
+                if (roadCart + quantity > p.getStock()) {
+                    // 크다면 재고가 부족합니다 출력
+                    System.out.println("재고가 부족합니다.");
+                    // 아니라면 장바구니에 추가합니다.
+                } else {
+                    cart.addProduct(p, quantity);
+                }
+            } else if (addProduct == 2) {
+                System.out.println("취소되었습니다.");
             } else {
-                cart.addProduct(p, quantity);
+                System.out.println("잘못 입력하셨습니다.");
             }
-        } else if (addProduct == 2) {
-            System.out.println("취소되었습니다.");
-        } else {
-            System.out.println("잘못 입력하셨습니다.");
+        }catch (NumberFormatException e){
+            System.out.println("숫자만 입력 가능합니다.");
         }
     }
     // CartSystem의 주문 기능을 핸들링하는 메서드 입니다.
